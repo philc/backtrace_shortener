@@ -1,5 +1,5 @@
-bactrace_shortener
-------------------
+backtrace_shortener
+-------------------
 
 This shortens the backtraces of exceptions to make debugging more friendly. Exceptions which are thrown in
 Ruby apps using rbenv and gems like Sinatra can be taller than one terminal screen, and each line can be
@@ -115,6 +115,6 @@ this filter rejects any line originating from a gem:
 
 Another example which truncates the backtrace to include only the first 10 lines:
 
-    BacktraceShortener.filters.unshift(Proc.new { |backtrace| backtrace[0, 10] }
+    BacktraceShortener.filters.unshift(Proc.new { |backtrace| backtrace[0, 10] })
 
 If you need to access the full backtrace while debugging, you can call `the_exception.full_backtrace`.
