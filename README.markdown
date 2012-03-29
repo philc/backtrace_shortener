@@ -2,10 +2,10 @@ bactrace_shortener
 ------------------
 
 This shortens the backtraces of exceptions to make debugging more friendly. Exceptions which are thrown in
-Ruby apps which use rbenv and gems like Sinatra can be taller than one terminal screen, and each line can be
+Ruby apps using rbenv and gems like Sinatra can be taller than one terminal screen, and each line can be
 long. See below for an example of the pain. Shortening these backtraces makes debugging more friendly.
 
-I use this in many projects, so it's now packaged as a gem.
+I use this small library in many projects, so it's now packaged as a gem.
 
 Usage
 -----
@@ -79,7 +79,8 @@ With backtrace_shortener enabled, an unwieldy exception backtrace which previous
 
 <br/>
 
-gets shortened to what you see below. Long method chains from gems get collapsed, and the RubyGems path (in my case, `/Users/philc/.rbenv/versions/1.9.2-p290/lib/ruby/gems/1.9.1`) gets trimmed from each line.
+gets shortened to what you see below. Long method chains from gems get collapsed, and the RubyGems path (in my
+case, `/Users/philc/.rbenv/versions/1.9.2-p290/lib/ruby/gems/1.9.1`) gets trimmed from each line.
 
       RuntimeError: It's no good, I can't maneuver!
       /Users/philc/html5player/api_server/app/server_root.rb:88:in `block in <class:ServerRoot>'
