@@ -5,7 +5,7 @@ This shortens the backtraces of exceptions to make debugging more friendly. Exce
 Ruby apps which use rbenv and gems like Sinatra can be taller than one terminal screen, and each line can be
 long. See below for an example of the pain. Shortening these backtraces makes debugging more friendly.
 
-I find myself using this in many of my projects, so it's now packaged as a gem.
+I use this in many projects, so it's now packaged as a gem.
 
 Usage
 -----
@@ -14,14 +14,15 @@ Usage
 
     (or you can just take backtrace_shortener.rb and copy it to your project. It's short.)
 
-    In your code
+In your code:
 
     require "backtrace_shortener"
+    BacktraceShortener.monkey_patch_the_exception_class!
 
 Features
 --------
 
-With it installed, an unwieldy exception backtrace which previously looked like this:
+With backtrace_shortener enabled, an unwieldy exception backtrace which previously looked like this:
 
     RuntimeError: It's no good, I can't maneuver!
     /Users/philc/api_server/server.rb:86:in `block in <class:ServerRoot>'
@@ -76,8 +77,9 @@ With it installed, an unwieldy exception backtrace which previously looked like 
     /Users/philc/.rbenv/versions/1.9.2-p290/lib/ruby/gems/1.9.1/bin/rackup:19:in `load'
     /Users/philc/.rbenv/versions/1.9.2-p290/lib/ruby/gems/1.9.1/bin/rackup:19:in `<main>'api_server
 
+<br/>
 
-Gets shortened to this. Long method chains which are within gems get collapsed, and the RubyGems path (in my case, `/Users/philc/.rbenv/versions/1.9.2-p290/lib/ruby/gems/1.9.1`) gets trimmed from each line.
+gets shortened to what you see below. Long method chains from gems get collapsed, and the RubyGems path (in my case, `/Users/philc/.rbenv/versions/1.9.2-p290/lib/ruby/gems/1.9.1`) gets trimmed from each line.
 
       RuntimeError: It's no good, I can't maneuver!
       /Users/philc/html5player/api_server/app/server_root.rb:88:in `block in <class:ServerRoot>'
@@ -104,7 +106,7 @@ Gets shortened to this. Long method chains which are within gems get collapsed, 
 
 
 If you want to see even less or filter things specific to your application, add your own filters. For example,
-this filter rejects any line originating from a Gem:
+this filter rejects any line originating from a gem:
 
     BacktraceShortener.filters.unshift(Proc.new do |backtrace|
       backtrace.reject { |line| line.include?(Gem.dir) }
@@ -114,4 +116,4 @@ Another example which truncates the backtrace to include only the first 10 lines
 
     BacktraceShortener.filters.unshift(Proc.new { |backtrace| backtrace[0, 10] }
 
-If you need to access the full backtrace while debugging, you can call `my_exception.full_backtrace`.
+If you need to access the full backtrace while debugging, you can call `the_exception.full_backtrace`.
